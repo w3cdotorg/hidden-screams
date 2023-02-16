@@ -1,4 +1,4 @@
-![Ciné Club du w3c](/images/avatar.png)
+![Ciné Club du w3c](/images/profile_picture_memoji_.png]
 
 # Un fork de Moustache et cinema
 
