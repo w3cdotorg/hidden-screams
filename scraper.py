@@ -70,7 +70,7 @@ for year in filenames:
             print("Fetch: ", str(title.contents[0]))
             image = soup.find("meta", property="og:image")
             plot = soup.find("meta", property="og:description")
-            score = movie_rate.append(movie.find('span',{'class': 'ipc-rating-star ipc-rating-star--baseAlt ipc-rating-star--imdb'}).text)
+            score = soup.find('span',{'class': 'ipc-rating-star ipc-rating-star--baseAlt ipc-rating-star--imdb'})
             movie = {
                 "id": movie_id,
                 "title": str(title.contents[0]),
