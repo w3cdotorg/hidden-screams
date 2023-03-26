@@ -71,8 +71,7 @@ for year in filenames:
             plot = soup.find("meta", property="og:description")
            
 
-           score = movie_rate.append(movie.find('span',
-                                     {'class': 'ipc-rating-star ipc-rating-star--baseAlt ipc-rating-star--imdb'}).text)
+           score = movie_rate.append(movie.find('span',{'class': 'ipc-rating-star ipc-rating-star--baseAlt ipc-rating-star--imdb'}).text)
 
 
            movie = {
