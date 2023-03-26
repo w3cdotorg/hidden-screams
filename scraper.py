@@ -70,7 +70,6 @@ for year in filenames:
             print("Fetch: ", str(title.contents[0]))
             image = soup.find("meta", property="og:image")
             plot = soup.find("meta", property="og:description")
-            score = soup.find('span',{'class': 'ipc-rating-star ipc-rating-star--baseAlt ipc-rating-star--imdb'})
             movie = {
                 "id": movie_id,
                 "title": str(title.contents[0]),
@@ -79,7 +78,6 @@ for year in filenames:
                 "link": link,
                 "year": year,
                 "podium": podium,
-                "score": score,
             }
             movies.append(movie)
             tmp_cache.append(movie)
@@ -122,9 +120,7 @@ for item in all_movies:
             + movie["plot"]
             + "</p>\n\t\t<a href='"
             + movie["link"]
-            + "'>IMDB</a> <span>Score : "
-            + movie["score"]
-            +"</span>\n\t</article>\n"
+            + "'>IMDB</a>\n\t</article>\n"
         )
         content += movie_string
     content += "</div></section>"
