@@ -33,6 +33,7 @@ for file in sort:
 
 
 all_movies = []
+movie_rate = []
 tmp_cache = []
 menu = "<ul>"
 for year in filenames:
