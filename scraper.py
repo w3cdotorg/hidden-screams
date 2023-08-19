@@ -71,6 +71,7 @@ for year in filenames:
             plot = soup.find("meta", property="og:description")
             movie = {
                 "id": movie_id,
+#                "title": str(title.contents[0]),
                 "title": str(title.contents[0]),
                 "image": image.get("content"),
                 "plot": plot.get("content"),
@@ -106,6 +107,7 @@ for item in all_movies:
         + "</h2></div></div><div class='movies'>\n"
     )
     for movie in item["movies"]:
+        alttitle=title.replace("'","&#39;")
         movie_string = (
             "\t<article class='flow "
             + movie["podium"]
@@ -113,6 +115,7 @@ for item in all_movies:
             + movie["image"]
             + "'' alt='"
             + movie["title"]
+#            + movie["alttitle"]
             + "'/>\n\t\t<h3>"
             + movie["title"]
             + "</h3>\n\t\t<p>"
