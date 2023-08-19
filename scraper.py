@@ -112,7 +112,7 @@ for item in all_movies:
             + movie["podium"]
             + "'>\n\t\t<img loading='lazy' src='"
             + movie["image"]
-            + "'' alt='"
+            + "' alt='"
             + movie["alttitle"]
             + "'/>\n\t\t<h3>"
             + movie["title"]
