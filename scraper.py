@@ -107,15 +107,15 @@ for item in all_movies:
         + "</h2></div></div><div class='movies'>\n"
     )
     for movie in item["movies"]:
-        alttitle=title.replace("'","&#39;")
+        alttitle=movie.title.replace("'","&#39;")
         movie_string = (
             "\t<article class='flow "
             + movie["podium"]
             + "'>\n\t\t<img loading='lazy' src='"
             + movie["image"]
             + "'' alt='"
-            + movie["title"]
-#            + movie["alttitle"]
+            + movie["alttitle"]
+#            + movie["title"]
             + "'/>\n\t\t<h3>"
             + movie["title"]
             + "</h3>\n\t\t<p>"
