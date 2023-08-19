@@ -71,7 +71,8 @@ for year in filenames:
             plot = soup.find("meta", property="og:description")
             movie = {
                 "id": movie_id,
-                "title": str(title.contents[0]),
+#                "title": str(title.contents[0]),
+                "title": re.escape(str(title.contents[0])),
                 "image": image.get("content"),
                 "plot": plot.get("content"),
                 "link": link,
@@ -112,7 +113,8 @@ for item in all_movies:
             + "'>\n\t\t<img loading='lazy' src='"
             + movie["image"]
             + "'' alt='"
-            + movie["title"]
+            # movie["title"]
+            + re.escape(movie["title"])
             + "'/>\n\t\t<h3>"
             + movie["title"]
             + "</h3>\n\t\t<p>"
