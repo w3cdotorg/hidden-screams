@@ -78,7 +78,7 @@ for year in filenames:
                 "link": link,
                 "year": year,
                 "podium": podium,
-                "alttitle": str(title.contents[0]).replace("'","&#39;"),
+#                "alttitle": str(title.contents[0]).replace("'","&#39;"),
             }
             movies.append(movie)
             tmp_cache.append(movie)
@@ -108,16 +108,16 @@ for item in all_movies:
         + "</h2></div></div><div class='movies'>\n"
     )
     for movie in item["movies"]:
-#        alttitle=movie["title"].replace("'","&#39;")
+        alttitle=movie["title"].replace("'","&#39;")
         movie_string = (
             "\t<article class='flow "
             + movie["podium"]
             + "'>\n\t\t<img loading='lazy' src='"
             + movie["image"]
             + "'' alt='"
-#            + alttitle
+            + alttitle
 #            + movie["title"]
-            + movie["alttitle"]
+#            + movie["alttitle"]
             + "'/>\n\t\t<h3>"
             + movie["title"]
             + "</h3>\n\t\t<p>"
