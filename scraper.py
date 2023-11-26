@@ -65,7 +65,7 @@ for year in filenames:
             link = url + movie_id
             res = requests.get(link, headers=headers)
             soup = BeautifulSoup(res.content, "html.parser")
-            title = soup.find("h1")
+            title = soup.find("h1").get_text()
             print("Fetch: ", str(title))
             image = soup.find("meta", property="og:image")
             plot = soup.find("meta", property="twitter:image:alt")
