@@ -77,7 +77,6 @@ for year in filenames:
                 "link": link,
                 "year": year,
                 "podium": podium,
-                "alttitle": str(title.contents[0]).replace("'","&#39;"),
             }
             movies.append(movie)
             tmp_cache.append(movie)
@@ -109,8 +108,8 @@ for item in all_movies:
             + movie["podium"]
             + "'>\n\t\t<img loading='lazy' src='"
             + movie["image"]
-            + "' alt='"
-            + movie["alttitle"]
+            + "'' alt='"
+            + movie["title"]
             + "'/>\n\t\t<h3>"
             + movie["title"]
             + "</h3>\n\t\t<p>"
