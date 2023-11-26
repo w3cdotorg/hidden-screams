@@ -65,7 +65,7 @@ for year in filenames:
             link = url + movie_id
             res = requests.get(link, headers=headers)
             soup = BeautifulSoup(res.content, "html.parser")
-            title = soup.find("h1").get_text()
+            title = soup.find("h1")
             print("Fetch: ", str(title))
             image = soup.find("meta", property="og:image")
             plot = soup.find("meta", property="twitter:image:alt")
@@ -77,6 +77,7 @@ for year in filenames:
                 "link": link,
                 "year": year,
                 "podium": podium,
+                "alttitle": str(title.contents[0]).replace("'","&#39;"),
             }
             movies.append(movie)
             tmp_cache.append(movie)
@@ -108,8 +109,8 @@ for item in all_movies:
             + movie["podium"]
             + "'>\n\t\t<img loading='lazy' src='"
             + movie["image"]
-            + "'' alt='"
-            + movie["title"]
+            + "' alt='"
+            + movie["alttitle"]
             + "'/>\n\t\t<h3>"
             + movie["title"]
             + "</h3>\n\t\t<p>"
