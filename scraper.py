@@ -3,14 +3,22 @@ import json
 import re
 import requests
 import shutil
-from bs4 import BeautifulSoup
 import string
 
 # Config
 path = "movies"
 cache_path = "cache"
 url = "https://www.imdb.com/title/"
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+# IMDB blocks plain HTML scraping (bot challenge), so metadata comes from
+# their public GraphQL API instead. Browser-like headers are required.
+api_url = "https://api.graphql.imdb.com/"
+api_query = "query($id:ID!){title(id:$id){titleText{text} plot{plotText{plainText}} primaryImage{url caption{plainText}}}}"
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+    'Origin': 'https://www.imdb.com',
+    'Referer': 'https://www.imdb.com/',
+    'Content-Type': 'application/json',
+}
 
 # Years
 years = []
@@ -47,17 +55,24 @@ for year in years:
             movies.append(cache_array)
         else:
             link = url + movie_id
-            res = requests.get(link, headers=headers)
-            soup = BeautifulSoup(res.content, "html.parser")
-            title = soup.find("h1").get_text()
+            res = requests.post(
+                api_url,
+                json={"query": api_query, "variables": {"id": movie_id}},
+                headers=headers,
+            )
+            res.raise_for_status()
+            data = res.json()["data"]["title"]
+            if data is None:
+                raise ValueError("IMDB id not found: " + movie_id)
+            title = data["titleText"]["text"]
             print("Fetch:", str(title))
-            image = soup.find("meta", property="og:image")
-            plot = soup.find("meta", property="twitter:image:alt")
+            image = data["primaryImage"] or {}
+            plot = data["plot"] or {}
             movie = {
                 "id": movie_id,
                 "title": str(title),
-                "image": image.get("content"),
-                "plot": plot.get("content"),
+                "image": image.get("url", ""),
+                "plot": (plot.get("plotText") or {}).get("plainText", ""),
                 "link": link,
                 "year": year,
                 "podium": podium,
