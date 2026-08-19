@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: cache/
           key: cache
@@ -19,7 +19,7 @@ jobs:
         run: echo 'https://w3cdotorg.github.io/hidden-screams/' > docs/CNAME
       - name: Deploy to GitHub Pages
         if: success()
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: crazy-max/ghaction-github-pages@v5
         with:
           target_branch: gh-pages
           build_dir: docs
